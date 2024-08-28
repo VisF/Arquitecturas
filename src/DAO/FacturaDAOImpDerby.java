@@ -1,8 +1,11 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import Modelo.Factura;
@@ -27,7 +30,19 @@ public class FacturaDAOImpDerby implements FacturaDAO {
 
 	@Override
 	public void insertar(Factura factura) {
-		// TODO Auto-generated method stub
+		try {
+	        String sql = "UPDATE Factura SET idCliente = ? WHERE idFactura = ?";
+	        PreparedStatement stmt = this.connection.prepareStatement(sql);
+	        
+	        stmt.setInt(1, factura.getIdCliente());
+	        stmt.setInt(2, factura.getIdFactura());
+	        stmt.executeUpdate();
+	        //stmt.close();
+	        ConnectionFactory.getInstance().disconnect();
+	    } catch (SQLException e) {
+	    	System.err.println("Error al insertar la factura: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 		
 	}
 
@@ -45,8 +60,24 @@ public class FacturaDAOImpDerby implements FacturaDAO {
 
 	@Override
 	public List<Factura> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Factura> facturas = new ArrayList<>();
+		try {
+			String sql = "SELECT * FROM Factura";
+			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			
+			ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	        	Factura factura = new Factura();
+	        	factura.setIdFactura(rs.getInt("idFactura"));
+	        	factura.setIdCliente(rs.getInt("idCliente"));
+	        	facturas.add(factura);
+	        }
+
+		}
+		catch (SQLException e){
+			e.printStackTrace();
+		}
+		return facturas;
 	}
 
 }

@@ -1,14 +1,18 @@
 package DAO;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import Modelo.Cliente;
+import Modelo.Factura;
 import conection.ConnectionFactory;
 
 public class ClienteDAOImpDerby implements ClienteDAO{
-	private Connection connection = ConnectionFactory.getInstance().connect(ConnectionFactory.DERBY);;
+	private Connection connection = ConnectionFactory.getInstance().connect(ConnectionFactory.DERBY);
 	@Override
 	
 	//TODO singleton
@@ -28,26 +32,77 @@ public class ClienteDAOImpDerby implements ClienteDAO{
 
 	@Override
 	public void insertar(Cliente cliente) {
-		// TODO Auto-generated method stub
+		try {
+	        String sql = "INSERT INTO CLIENTE (id, nombre, email) VALUES (?,?,?)";
+	        PreparedStatement stmt = this.connection.prepareStatement(sql);
+	        stmt.setInt(1, cliente.getId());
+	        stmt.setString(2, cliente.getNombre());
+	        stmt.setString(3, cliente.getEmail());
+	        stmt.executeUpdate();
+	        //stmt.close();
+	        ConnectionFactory.getInstance().disconnect();
+	    } catch (SQLException e) {
+	    	System.err.println("Error al insertar la factura: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 		
 	}
 
 	@Override
 	public void actualizar(Cliente cliente) {
-		// TODO Auto-generated method stub
+		try {
+	        String sql = "UPDATE Cliente SET nombre = ?, email = ? WHERE id = ?";
+	        PreparedStatement stmt = this.connection.prepareStatement(sql);
+	        
+	        stmt.setString(1, cliente.getNombre());
+	        stmt.setString(2, cliente.getEmail());
+	        stmt.setInt(3, cliente.getId());
+	        stmt.executeUpdate();
+	        //stmt.close();
+	        ConnectionFactory.getInstance().disconnect();
+	    } catch (SQLException e) {
+	    	System.err.println("Error al insertar la factura: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 		
 	}
 
 	@Override
 	public void eliminar(Cliente cliente) {
-		// TODO Auto-generated method stub
+		try {
+	        String sql = "DELET Cliente WHERE id = ?";
+	        PreparedStatement stmt = this.connection.prepareStatement(sql);
+	        stmt.setInt(1, cliente.getId());
+	        stmt.executeUpdate();
+	        //stmt.close();
+	        ConnectionFactory.getInstance().disconnect();
+	    } catch (SQLException e) {
+	    	System.err.println("Error al insertar la factura: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 		
 	}
 
 	@Override
 	public List<Cliente> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Cliente> clientes = new ArrayList<>();
+		try {
+			String sql = "SELECT * FROM Cliente";
+			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			
+			ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	        	Cliente cliente = new Cliente();
+	        	cliente.setId(rs.getInt("id"));
+	        	cliente.setNombre(rs.getString("nombre"));
+	        	clientes.add(cliente);
+	        }
+
+		}
+		catch (SQLException e){
+			e.printStackTrace();
+		}
+		return clientes;
 	}
 
 	@Override

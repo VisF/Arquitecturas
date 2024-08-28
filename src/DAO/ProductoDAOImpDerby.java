@@ -1,10 +1,14 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
+import Modelo.Cliente;
 import Modelo.Producto;
 import conection.ConnectionFactory;
 
@@ -27,13 +31,36 @@ public class ProductoDAOImpDerby implements ProductoDAO{
 
 	@Override
 	public void insertar(Producto producto) {
-		// TODO Auto-generated method stub
+		    try {
+		        String sql = "INSERT INTO Producto (idProducto, nombre, valor)VALUES (?,?,?)";
+		        PreparedStatement stmt = this.connection.prepareStatement(sql);
+		        stmt.setInt(1, producto.getIdProducto());
+		        stmt.setString(2, producto.getNombre());
+		        stmt.setFloat(3, producto.getValor());
+		        stmt.executeUpdate();
+		        stmt.close();
+		        ConnectionFactory.getInstance().disconnect();
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+
 		
 	}
 
 	@Override
 	public void actualizar(Producto producto) {
-		// TODO Auto-generated method stub
+		try {
+	        String sql = "UPDATE Producto SET nombre = ?, valor = ? WHERE idProducto = ?";
+	        PreparedStatement stmt = this.connection.prepareStatement(sql);   
+	        stmt.setString(1, producto.getNombre());
+	        stmt.setFloat(2, producto.getValor());
+	        stmt.setInt(3, producto.getIdProducto());
+	        stmt.executeUpdate();
+	        stmt.close();
+	        ConnectionFactory.getInstance().disconnect();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 		
 	}
 
@@ -45,8 +72,25 @@ public class ProductoDAOImpDerby implements ProductoDAO{
 
 	@Override
 	public List<Producto> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Producto> productos = new ArrayList<>();
+		try {
+			String sql = "SELECT * FROM Producto";
+			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			
+			ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	        	Producto  producto = new Producto();
+	        	producto.setIdProducto(rs.getInt("idProducto"));
+	        	producto.setNombre(rs.getString("nombre"));
+	        	producto.setValor(rs.getFloat("valor"));
+	        	productos.add(producto);
+	        }
+
+		}
+		catch (SQLException e){
+			e.printStackTrace();
+		}
+		return productos;
 	}
 
 }

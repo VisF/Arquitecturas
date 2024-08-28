@@ -20,4 +20,11 @@
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/CSVFiles/productos.csv</name>
+			<type>1</type>
+			<location>C:/Users/Facun/eclipse-workspace/ArquitecturaTP1/src/CSVFiles/productos.csv</location>
+		</link>
+	</linkedResources>
 </projectDescription>
