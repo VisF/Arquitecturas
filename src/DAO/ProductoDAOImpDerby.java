@@ -32,12 +32,13 @@ public class ProductoDAOImpDerby implements ProductoDAO{
 	@Override
 	public void insertar(Producto producto) {
 		    try {
+		    	Statement stmt = this.connection.createStatement();
 		        String sql = "INSERT INTO Producto (idProducto, nombre, valor)VALUES (?,?,?)";
-		        PreparedStatement stmt = this.connection.prepareStatement(sql);
-		        stmt.setInt(1, producto.getIdProducto());
-		        stmt.setString(2, producto.getNombre());
-		        stmt.setFloat(3, producto.getValor());
-		        stmt.executeUpdate();
+		        PreparedStatement stmt2 = this.connection.prepareStatement(sql);
+		        stmt2.setInt(1, producto.getIdProducto());
+		        stmt2.setString(2, producto.getNombre());
+		        stmt2.setFloat(3, producto.getValor());
+		        stmt2.executeUpdate();
 		        stmt.close();
 		        ConnectionFactory.getInstance().disconnect();
 		    } catch (SQLException e) {

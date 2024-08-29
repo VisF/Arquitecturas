@@ -1,8 +1,22 @@
 ----------------------------------------------------------------
+<<<<<<< HEAD
 Thu Aug 29 16:07:16 ART 2024:
 Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0191-9f88-ea4a-0000075ad6b0 
 on database directory D:\REPOSITORIOS\Arquitecturas\dbtp1 with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@51521cc1 
 Loaded from file:/C:/Users/matias/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
+=======
+<<<<<<< HEAD
+Thu Aug 29 16:09:21 ART 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0191-9f8a-d439-000006db76f0 
+on database directory C:\Users\Facun\eclipse-workspace\ArquitecturaTP1\dbtp1 with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@2328c243 
+Loaded from file:/C:/Users/Facun/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
+=======
+Thu Aug 29 08:31:05 ART 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0191-9de7-44eb-00000736b148 
+on database directory C:\Users\computos\eclipse-workspace\Arquitecturas\dbtp1 with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@22d8cfe0 
+Loaded from file:/C:/Users/computos/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
+>>>>>>> 2a0c1d743ed6b69684b0093d4bf52865dee01cba
+>>>>>>> 454ec2286fcdd6d27b0bd6287c5b06daac334021
 java.vendor=Eclipse Adoptium
 java.runtime.version=22.0.2+9
 user.dir=D:\REPOSITORIOS\Arquitecturas

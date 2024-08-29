@@ -5,13 +5,13 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import CSVHandler.ProductoCSVHandler;
 import DAO.DAOFactory;
 import Modelo.Cliente;
 import Modelo.Factura;
 import Modelo.Producto;
 //import Modelo.Cliente;
 import conection.ConnectionFactory;
-import CSVFiles.ProductoCSVHandler;
 
 
 public class Main {
@@ -36,9 +36,8 @@ public class Main {
 		List<Factura> facturas = new ArrayList<>();
 		facturas = dao_factory.getFacturaDAO(ConnectionFactory.DERBY).listar();
 		*/
-		/*
-		ProductoCSVHandler csv = new ProductoCSVHandler();
 		
+		ProductoCSVHandler csv = new ProductoCSVHandler();
 		csv.procesarCSV("/CSVFiles/productos.csv");
 		List<Producto> productos = new ArrayList<>();
 		productos = dao_factory.getProductoDAO(ConnectionFactory.DERBY).listar();
@@ -47,6 +46,8 @@ public class Main {
 			System.out.println("Factura " + productos.get(i).getIdProducto() + " con cliente " + productos.get(i).getNombre());
 		}
 		*/
+		
+		
 		
 		/*  --- MySQL --- */
 		/*
