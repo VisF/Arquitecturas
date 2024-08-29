@@ -70,7 +70,7 @@ public class ClienteDAOImpDerby implements ClienteDAO{
 	@Override
 	public void eliminar(Cliente cliente) {
 		try {
-	        String sql = "DELET Cliente WHERE id = ?";
+	        String sql = "DELETE FROM Cliente WHERE id = ?";
 	        PreparedStatement stmt = this.connection.prepareStatement(sql);
 	        stmt.setInt(1, cliente.getId());
 	        stmt.executeUpdate();
