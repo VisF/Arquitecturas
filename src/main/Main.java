@@ -1,5 +1,7 @@
 package main;
 
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +38,7 @@ public class Main {
 		*/
 		/*
 		ProductoCSVHandler csv = new ProductoCSVHandler();
+		
 		csv.procesarCSV("/CSVFiles/productos.csv");
 		List<Producto> productos = new ArrayList<>();
 		productos = dao_factory.getProductoDAO(ConnectionFactory.DERBY).listar();
@@ -45,10 +48,9 @@ public class Main {
 		}
 		*/
 		
-		
-		
 		/*  --- MySQL --- */
-		//dao_factory.getClienteDAO(ConnectionFactory.MYSQL).crear_tabla();
+		/*
+		dao_factory.getClienteDAO(ConnectionFactory.MYSQL).crear_tabla();
 		
 		Cliente cliente1 = new Cliente();
 		cliente1.setId(1);
@@ -64,7 +66,7 @@ public class Main {
 		cliente3.setId(3);
 		cliente3.setNombre("ramiro");
 		cliente3.setEmail("ramiro@hotmail.com");
-		
+		*/
 		/*dao_factory.getClienteDAO(ConnectionFactory.MYSQL).insertar(cliente1);
 		dao_factory.getClienteDAO(ConnectionFactory.MYSQL).insertar(cliente2);
 		dao_factory.getClienteDAO(ConnectionFactory.MYSQL).insertar(cliente3);

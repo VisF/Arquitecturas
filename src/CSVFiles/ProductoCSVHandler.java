@@ -21,7 +21,8 @@ public class ProductoCSVHandler {
     public void procesarCSV(String archivoCSV) {
         List<Producto> productos = new ArrayList<>();
         
-        try (CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(archivoCSV))) {
+        try (@SuppressWarnings("deprecation")
+		CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(archivoCSV))) {  //CSVFormat.DEFAULT.withHeader().parse(new FileReader(archivoCSV))) {
             for (CSVRecord row : parser) {
                 Producto producto = new Producto();
                 producto.setIdProducto(Integer.parseInt(row.get("idProducto")));
