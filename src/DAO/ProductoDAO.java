@@ -16,4 +16,6 @@ public interface ProductoDAO {
 	//public Cliente buscar_por_nombre(String nombre);
 	
 	public List<Producto> listar();
+	
+	public Producto getMasRecaudador();
 }
