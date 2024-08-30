@@ -1,5 +1,7 @@
 package main;
 
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +38,11 @@ public class Main {
 		*/
 		
 		ProductoCSVHandler csv = new ProductoCSVHandler();
+<<<<<<< HEAD
 		//csv.procesarCSV("./src/csvfiles/datasets/producto2.csv");
+=======
+		csv.procesarCSV("/CSVFiles/productos.csv");
+>>>>>>> ea30fda92a037fb79b5f4d37739f8ab158452df0
 		List<Producto> productos = new ArrayList<>();
 		productos = dao_factory.getProductoDAO(ConnectionFactory.DERBY).listar();
 		
@@ -44,12 +50,13 @@ public class Main {
 			System.out.println("Id Producto: " + productos.get(i).getIdProducto() + " nombre del producto: " + productos.get(i).getNombre() + " valor: " + productos.get(i).getValor());
 			
 		}
-		
+		*/
 		
 		
 		
 		/*  --- MySQL --- */
-		//dao_factory.getClienteDAO(ConnectionFactory.MYSQL).crear_tabla();
+		/*
+		dao_factory.getClienteDAO(ConnectionFactory.MYSQL).crear_tabla();
 		
 		Cliente cliente1 = new Cliente();
 		cliente1.setId(1);
@@ -65,7 +72,7 @@ public class Main {
 		cliente3.setId(3);
 		cliente3.setNombre("ramiro");
 		cliente3.setEmail("ramiro@hotmail.com");
-		
+		*/
 		/*dao_factory.getClienteDAO(ConnectionFactory.MYSQL).insertar(cliente1);
 		dao_factory.getClienteDAO(ConnectionFactory.MYSQL).insertar(cliente2);
 		dao_factory.getClienteDAO(ConnectionFactory.MYSQL).insertar(cliente3);
