@@ -41,7 +41,7 @@ public class Main {
 		productos = dao_factory.getProductoDAO(ConnectionFactory.DERBY).listar();
 		
 		for(int i=0;i<productos.size();i++) {
-			System.out.println("Id Producto: " + productos.get(i).getIdProducto() + "nombre del producto: " + productos.get(i).getNombre() + " valor: " + productos.get(i).getValor());
+			System.out.println("Id Producto: " + productos.get(i).getIdProducto() + " nombre del producto: " + productos.get(i).getNombre() + " valor: " + productos.get(i).getValor());
 			
 		}
 		

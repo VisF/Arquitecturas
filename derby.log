@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Thu Aug 29 23:35:12 ART 2024:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0191-a123-03d7-000006db8250 
+Thu Aug 29 23:47:00 ART 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0191-a12d-d322-000006db92f0 
 on database directory C:\Users\Facun\eclipse-workspace\ArquitecturaTP1\dbtp1 with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@2328c243 
 Loaded from file:/C:/Users/Facun/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
 java.vendor=Eclipse Adoptium
