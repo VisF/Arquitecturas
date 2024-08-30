@@ -66,7 +66,7 @@ public class FacturaDAOImpDerby implements FacturaDAO {
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			
 			ResultSet rs = stmt.executeQuery();
-	        if (rs.next()) {
+	        while (rs.next()) {
 	        	Factura factura = new Factura();
 	        	factura.setIdFactura(rs.getInt("idFactura"));
 	        	factura.setIdCliente(rs.getInt("idCliente"));

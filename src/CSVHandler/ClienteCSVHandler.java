@@ -1,4 +1,5 @@
 package CSVHandler;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -6,45 +7,40 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
-
 import DAO.DAOFactory;
+import Modelo.Cliente;
 import Modelo.Producto;
 import conection.ConnectionFactory;
 
-
-public class ProductoCSVHandler {
+public class ClienteCSVHandler {
 	
-    
-    public ProductoCSVHandler() {
+	public ClienteCSVHandler() {
     }
     
     public void procesarCSV(String archivoCSV) {
-        List<Producto> productos = new ArrayList<>();
+        List<Cliente> clientes = new ArrayList<>();
         ArrayList<String[]> lines = this.readContent(archivoCSV);
 
 		for (String[] line: lines) {
 			String cleanedValue = line[0].trim().replace("\"", "");
 			
-			int idProducto = Integer.parseInt(cleanedValue);
+			int idCliente = Integer.parseInt(cleanedValue);
 			String nombre = line[1].trim();
-			String cleanedValue2 = line[2].trim().replace("\"", "");
-			float valor = Float.parseFloat(cleanedValue2);
-
-			Producto producto = new Producto();
+			String email = line[2].trim();
 			
-			producto.setIdProducto(idProducto);
-			producto.setNombre(nombre);
-			producto.setValor(valor);
-			productos.add(producto);
+
+			Cliente cliente = new Cliente();
+			
+			cliente.setId(idCliente);
+			cliente.setNombre(nombre);
+			cliente.setEmail(email);
+			clientes.add(cliente);
 			
 			
 		}
-        for(Producto producto : productos){
+        for(Cliente cliente : clientes){
         	DAOFactory dao_factory = DAOFactory.getInstance();
-        	dao_factory.getProductoDAO(ConnectionFactory.DERBY).insertar(producto);
+        	dao_factory.getClienteDAO(ConnectionFactory.DERBY).insertar(cliente);
         }
     }
     

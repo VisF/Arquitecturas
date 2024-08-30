@@ -17,8 +17,8 @@ public class Main {
 	public static void main(String[] args) {
 		DAOFactory dao_factory = DAOFactory.getInstance();
 		//dao_factory.getFacturaDAO(ConnectionFactory.DERBY).crear_tabla();
-		/*dao_factory.getClienteDAO(ConnectionFactory.DERBY).crear_tabla();
-		
+		//dao_factory.getProductoDAO(ConnectionFactory.DERBY).crear_tabla();
+		/*
 		Cliente cliente1 = new Cliente();
 		cliente1.setId(1);
 		cliente1.setNombre("PrimeraPrueba");
@@ -36,12 +36,13 @@ public class Main {
 		*/
 		
 		ProductoCSVHandler csv = new ProductoCSVHandler();
-		csv.procesarCSV("./src/csvfiles/datasets/productos.csv");
+		//csv.procesarCSV("./src/csvfiles/datasets/producto2.csv");
 		List<Producto> productos = new ArrayList<>();
 		productos = dao_factory.getProductoDAO(ConnectionFactory.DERBY).listar();
 		
-		for(int i=0;i<10;i++) {
-			System.out.println("Factura " + productos.get(i).getIdProducto() + " con cliente " + productos.get(i).getNombre());
+		for(int i=0;i<productos.size();i++) {
+			System.out.println("Id Producto: " + productos.get(i).getIdProducto() + "nombre del producto: " + productos.get(i).getNombre() + " valor: " + productos.get(i).getValor());
+			
 		}
 		
 		
@@ -73,7 +74,7 @@ public class Main {
 		//cliente1.setNombre("PruebaUpdate");
 		//dao_factory.getClienteDAO(ConnectionFactory.MYSQL).actualizar(cliente1);
 		//dao_factory.getClienteDAO(ConnectionFactory.MYSQL).eliminar(cliente1);
-		
+		/*
 		List<Cliente> clientes = new ArrayList<>();
 		clientes = dao_factory.getClienteDAO(ConnectionFactory.MYSQL).listar();
 		
@@ -81,11 +82,12 @@ public class Main {
 		      System.out.println(cl.toString());
 		    }
 		   */
-		
+		/*
 		 for (int i=0;i<clientes.size();i++) {
 		      
 		      System.out.println(clientes.get(i).toString());
 		    }
+		 */
 	}
 
 }
