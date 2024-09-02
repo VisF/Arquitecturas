@@ -7,8 +7,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+
 import DAO.DAOFactory;
 import Modelo.Cliente;
+import Modelo.Factura;
 import Modelo.Producto;
 import conection.ConnectionFactory;
 
@@ -16,8 +21,36 @@ public class ClienteCSVHandler {
 	
 	public ClienteCSVHandler() {
     }
+	
+	public void procesarCSV(String archivoCSV) {
+        List<Cliente> clientes = new ArrayList<>();
+        
+        try (@SuppressWarnings("deprecation")
+		CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(archivoCSV))) {  //CSVFormat.DEFAULT.withHeader().parse(new FileReader(archivoCSV))) {
+            for (CSVRecord row : parser) {
+            	Cliente cliente = new Cliente();
+            	cliente.setId(Integer.parseInt(row.get("idCliente")));
+            	cliente.setNombre(row.get("nombre"));
+            	cliente.setEmail(row.get("email"));
+                clientes.add(cliente);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error al leer el archivo CSV: " + e.getMessage());
+        }
+        
+        // Actualizar los productos en la base de datos
+        for(Cliente cliente : clientes){
+        	
+        	DAOFactory dao_factory = DAOFactory.getInstance();
+        	dao_factory.getClienteDAO(ConnectionFactory.MYSQL).insertar(cliente);
+        	
+        	//System.out.println(cliente.getId() + ";" + cliente.getNombre() + ";" + cliente.getEmail());
+        	
+        }
+    }
     
-    public void procesarCSV(String archivoCSV) {
+    public void procesarCSVviejo(String archivoCSV) {
         List<Cliente> clientes = new ArrayList<>();
         ArrayList<String[]> lines = this.readContent(archivoCSV);
 

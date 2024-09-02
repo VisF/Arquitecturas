@@ -7,6 +7,7 @@ import java.util.List;
 
 import CSVHandler.ClienteCSVHandler;
 import CSVHandler.FacturaCSVHandler;
+import CSVHandler.FacturaProductoCSVHandler;
 import CSVHandler.ProductoCSVHandler;
 import DAO.DAOFactory;
 import Modelo.Cliente;
@@ -20,8 +21,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		DAOFactory dao_factory = DAOFactory.getInstance();
-		//dao_factory.getFacturaDAO(ConnectionFactory.DERBY).crear_tabla();
-		//dao_factory.getProductoDAO(ConnectionFactory.DERBY).crear_tabla();
+		
+		crearTablas(dao_factory);
+		
+		insertarTuplas();
+		
+		System.out.println(dao_factory.getProductoDAO(ConnectionFactory.MYSQL).getMasRecaudador());
+		
 		/*
 		Cliente cliente1 = new Cliente();
 		cliente1.setId(1);
@@ -39,6 +45,7 @@ public class Main {
 		facturas = dao_factory.getFacturaDAO(ConnectionFactory.DERBY).listar();
 		*/
 		
+		//csv.procesarCSV("./src/csvfiles/datasets/producto2.csv");
 		
 		
 		/*  ---  CSV  ---  */
@@ -52,20 +59,18 @@ public class Main {
 		csvCliente.procesarCSV("./src/csvfiles/datasets/clientes.csv");
 		//agrega los mails con " al final
 		 */
-		FacturaCSVHandler csvFactura = new FacturaCSVHandler();
-		csvFactura.procesarCSV("./src/csvfiles/datasets/facturas.csv");
+		
 		
 
 		/*
+>>>>>>> 65e1c156272063cc9f51afe614e9287936863f01
 		List<Producto> productos = new ArrayList<>();
 		productos = dao_factory.getProductoDAO(ConnectionFactory.DERBY).listar();
 		
 		for(int i=0;i<productos.size();i++) {
 			System.out.println("Id Producto: " + productos.get(i).getIdProducto() + " nombre del producto: " + productos.get(i).getNombre() + " valor: " + productos.get(i).getValor());
 			
-		}
-		*/
-		
+		}		
 		
 		
 		/*  --- MySQL --- */
@@ -107,6 +112,27 @@ public class Main {
 		*/
 	
 		
+	}
+
+	private static void insertarTuplas() {
+		ClienteCSVHandler csvCliente = new ClienteCSVHandler();
+		csvCliente.procesarCSV("./src/csvfiles/datasets/clientes.csv");
+		
+		ProductoCSVHandler csv = new ProductoCSVHandler();
+		csv.procesarCSV("src/CSVFiles/datasets/productos.csv");
+		
+		FacturaCSVHandler csvFactura = new FacturaCSVHandler();
+		csvFactura.procesarCSV("./src/csvfiles/datasets/facturas.csv");
+		
+		FacturaProductoCSVHandler csvFacturaProducto = new FacturaProductoCSVHandler();
+		csvFacturaProducto.procesarCSV("./src/csvfiles/datasets/facturas-productos.csv");
+	}
+
+	private static void crearTablas(DAOFactory dao_factory) {
+		dao_factory.getClienteDAO(ConnectionFactory.MYSQL).crear_tabla();
+		dao_factory.getProductoDAO(ConnectionFactory.MYSQL).crear_tabla();
+		dao_factory.getFacturaDAO(ConnectionFactory.MYSQL).crear_tabla();
+		dao_factory.getFacturaProductoDAO(ConnectionFactory.MYSQL).crear_tabla();
 	}
 
 }

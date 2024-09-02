@@ -23,6 +23,34 @@ public class ProductoCSVHandler {
     
     public void procesarCSV(String archivoCSV) {
         List<Producto> productos = new ArrayList<>();
+        
+        try (@SuppressWarnings("deprecation")
+		CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(archivoCSV))) {  //CSVFormat.DEFAULT.withHeader().parse(new FileReader(archivoCSV))) {
+            for (CSVRecord row : parser) {
+                Producto producto = new Producto();
+                producto.setIdProducto(Integer.parseInt(row.get("idProducto")));
+                producto.setNombre(row.get("nombre"));
+                producto.setValor(Float.parseFloat(row.get("valor")));
+                productos.add(producto);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error al leer el archivo CSV: " + e.getMessage());
+        }
+        
+        // Actualizar los productos en la base de datos
+        for(Producto producto : productos){
+        	
+        	DAOFactory dao_factory = DAOFactory.getInstance();
+        	dao_factory.getProductoDAO(ConnectionFactory.MYSQL).insertar(producto);
+        	
+        	//System.out.println(producto.getNombre());
+        }
+    }
+    
+    /*
+    public void procesarCSV(String archivoCSV) {
+        List<Producto> productos = new ArrayList<>();
         ArrayList<String[]> lines = this.readContent(archivoCSV);
 
 		for (String[] line: lines) {
@@ -74,4 +102,5 @@ public class ProductoCSVHandler {
 		
 		return lines;
 	}
+	*/
 }

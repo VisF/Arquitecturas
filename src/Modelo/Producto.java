@@ -34,5 +34,8 @@ public class Producto {
 		this.valor = valor;
 	}
 	
+	public String toString() {
+		return "Producto [idProducto=" + this.getIdProducto() + ", nombre=" + this.getNombre() + ", valor=" + this.getValor() + "]";
+	}
 	
 }

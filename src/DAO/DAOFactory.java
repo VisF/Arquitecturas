@@ -21,7 +21,7 @@ public class DAOFactory {
 			return new ClienteDAOImpDerby();
 		}
 
-		throw new IllegalArgumentException("Tipo de DAO no válido: " + type);
+		throw new IllegalArgumentException("Tipo de DAO no vï¿½lido: " + type);
 
 	}
 	
@@ -33,7 +33,7 @@ public class DAOFactory {
 			return new FacturaDAOImpDerby();
 		}
 
-		throw new IllegalArgumentException("Tipo de DAO no válido: " + type);
+		throw new IllegalArgumentException("Tipo de DAO no vï¿½lido: " + type);
 
 	}
 	
@@ -45,7 +45,19 @@ public class DAOFactory {
 			return new ProductoDAOImpDerby();
 		}
 
-		throw new IllegalArgumentException("Tipo de DAO no válido: " + type);
+		throw new IllegalArgumentException("Tipo de DAO no vï¿½lido: " + type);
+
+	}
+	
+	public FacturaProductoDAO getFacturaProductoDAO(String type) {
+		if (type.equals(ConnectionFactory.MYSQL)) {
+			return new FacturaProductoDAOimpMySQL();
+		}
+		if (type.equals(ConnectionFactory.DERBY)) {
+			return new FacturaProductoDAOImpDerby();
+		}
+
+		throw new IllegalArgumentException("Tipo de DAO no vï¿½lido: " + type);
 
 	}
 
