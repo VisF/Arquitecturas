@@ -40,11 +40,11 @@ public class ProductoCSVHandler {
         
         // Actualizar los productos en la base de datos
         for(Producto producto : productos){
-        	/*
+        	
         	DAOFactory dao_factory = DAOFactory.getInstance();
-        	dao_factory.getProductoDAO(ConnectionFactory.DERBY).insertar(producto);
-        	*/
-        	System.out.println(producto.getNombre());
+        	dao_factory.getProductoDAO(ConnectionFactory.MYSQL).insertar(producto);
+        	
+        	//System.out.println(producto.getNombre());
         }
     }
     

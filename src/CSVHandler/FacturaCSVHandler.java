@@ -7,8 +7,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+
 import DAO.DAOFactory;
 import Modelo.Factura;
+import Modelo.Producto;
 import conection.ConnectionFactory;
 
 
@@ -17,8 +22,34 @@ public class FacturaCSVHandler {
 		public FacturaCSVHandler() {
 	    }
 	    
+		public void procesarCSV(String archivoCSV) {
+	        List<Factura> facturas = new ArrayList<>();
+	        
+	        try (@SuppressWarnings("deprecation")
+			CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(archivoCSV))) {  //CSVFormat.DEFAULT.withHeader().parse(new FileReader(archivoCSV))) {
+	            for (CSVRecord row : parser) {
+	                Factura factura = new Factura();
+	                factura.setIdCliente(Integer.parseInt(row.get("idCliente")));
+	                factura.setIdFactura(Integer.parseInt(row.get("idFactura")));
+	                facturas.add(factura);
+	            }
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            System.err.println("Error al leer el archivo CSV: " + e.getMessage());
+	        }
+	        
+	        // Actualizar los productos en la base de datos
+	        for(Factura factura : facturas){
+	        	
+	        	DAOFactory dao_factory = DAOFactory.getInstance();
+	        	dao_factory.getFacturaDAO(ConnectionFactory.MYSQL).insertar(factura);
+	        	
+	        	//System.out.println(factura.getIdCliente() + ";" + factura.getIdFactura());
+	        	
+	        }
+	    }
 		
-	    public void procesarCSV(String archivoCSV) {
+	    public void procesarCSVviejo(String archivoCSV) {
 	        List<Factura> facturas = new ArrayList<>();
 	        ArrayList<String[]> lines = this.readContent(archivoCSV);
 

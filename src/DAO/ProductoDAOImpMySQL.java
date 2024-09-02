@@ -91,11 +91,20 @@ public class ProductoDAOImpMySQL  implements ProductoDAO{
 		Producto masRecaudador = null;
 		try {
 			//TODO ni idea si funciona
-			String sql = "SELECT * "
+			/*String sql = "SELECT * "
 						+ "FROM producto "
 						+ "WHERE producto.idProducto = (SELECT p.idProducto, MAX(SUM(fp.cantidad) * p.valor AS 'recaudacion') "
-						+ 								"FROM Producto p LEFT JOIN factura_producto fp "
+						+ 								"FROM Producto p INNER JOIN factura_producto fp "
 						+ 								"ON p.idProducto = fp.idProducto )";
+			*/
+			String sql = "SELECT p.idProducto, p.nombre, p.valor"
+					+ "     FROM Producto p"
+					+ "     INNER JOIN factura_producto fp"
+					+ "     ON p.idProducto = fp.idProducto"
+					+ "     GROUP BY p.idProducto"
+					+ "     ORDER BY SUM(fp.cantidad) * p.valor DESC"
+					+ "		LIMIT 1";
+			
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			
 			ResultSet rs = stmt.executeQuery();

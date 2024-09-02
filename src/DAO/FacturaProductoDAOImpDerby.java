@@ -15,7 +15,7 @@ public class FacturaProductoDAOImpDerby implements FacturaProductoDAO{
 		try {
 			//this.connection.getInstance().
 			Statement stmt = this.connection.createStatement();
-			String sql = "CREATE TABLE factura_producto (idFactura INT, idProducto INT, cantidad INT, PRIMARY KEY (idFactura,idProducto), "
+			String sql = "CREATE TABLE factura_producto (idFactura INT, idProducto INT, cantidad INT, PRIMARY KEY (idFactura, idProducto), "
 					+ "FOREIGN KEY (idFactura) REFERENCES Factura(idFactura), FOREIGN KEY (idProducto) REFERENCES Producto(idProducto))";
 			stmt.executeUpdate(sql);
 			ConnectionFactory.getInstance().disconnect();

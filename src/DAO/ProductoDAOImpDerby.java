@@ -112,7 +112,7 @@ public class ProductoDAOImpDerby implements ProductoDAO{
 			String sql = "SELECT * "
 						+ "FROM producto "
 						+ "WHERE producto.idProducto = (SELECT p.idProducto, MAX(SUM(fp.cantidad) * p.valor AS 'recaudacion') "
-						+ 								"FROM Producto p LEFT JOIN factura_producto fp "
+						+ 								"FROM Producto p INNER JOIN factura_producto fp "
 						+ 								"ON p.idProducto = fp.idProducto )";
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			
