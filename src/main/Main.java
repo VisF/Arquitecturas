@@ -37,21 +37,17 @@ public class Main {
 		facturas = dao_factory.getFacturaDAO(ConnectionFactory.DERBY).listar();
 		*/
 		
-		ProductoCSVHandler csv = new ProductoCSVHandler();
-<<<<<<< HEAD
 		//csv.procesarCSV("./src/csvfiles/datasets/producto2.csv");
-=======
-		csv.procesarCSV("/CSVFiles/productos.csv");
->>>>>>> ea30fda92a037fb79b5f4d37739f8ab158452df0
+		ProductoCSVHandler csv = new ProductoCSVHandler();
+		csv.procesarCSV("src/CSVFiles/productos.csv");
+
 		List<Producto> productos = new ArrayList<>();
 		productos = dao_factory.getProductoDAO(ConnectionFactory.DERBY).listar();
 		
 		for(int i=0;i<productos.size();i++) {
 			System.out.println("Id Producto: " + productos.get(i).getIdProducto() + " nombre del producto: " + productos.get(i).getNombre() + " valor: " + productos.get(i).getValor());
 			
-		}
-		*/
-		
+		}		
 		
 		
 		/*  --- MySQL --- */
