@@ -40,7 +40,7 @@ public class ClienteCSVHandler {
 		}
         for(Cliente cliente : clientes){
         	DAOFactory dao_factory = DAOFactory.getInstance();
-        	dao_factory.getClienteDAO(ConnectionFactory.DERBY).insertar(cliente);
+        	dao_factory.getClienteDAO(ConnectionFactory.MYSQL).insertar(cliente);
         }
     }
     

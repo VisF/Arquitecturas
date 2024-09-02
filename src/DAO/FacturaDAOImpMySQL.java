@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -27,19 +28,55 @@ private Connection connection = ConnectionFactory.getInstance().connect(Connecti
 
 	@Override
 	public void insertar(Factura factura) {
-		// TODO Auto-generated method stub
+		try {
+	        String sql = "INSERT INTO factura (idFactura, idCliente) VALUES (?,?)";
+	        PreparedStatement stmt = this.connection.prepareStatement(sql);
+	        
+	        stmt.setInt(1, factura.getIdFactura());
+	        stmt.setInt(2, factura.getIdCliente());
+	        stmt.executeUpdate();
+	        stmt.close();
+	        ConnectionFactory.getInstance().disconnect();
+	        
+	    } catch (SQLException e) {
+	    	System.err.println("Error al insertar la factura: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 		
 	}
 
 	@Override
 	public void actualizar(Factura factura) {
-		// TODO Auto-generated method stub
+		try {
+	        String sql = "UPDATE factura SET idCliente = ? WHERE idFactura = ?";
+	        PreparedStatement stmt = this.connection.prepareStatement(sql);
+	        
+	        stmt.setInt(1, factura.getIdCliente());
+	        stmt.setInt(2, factura.getIdFactura());
+	      
+	        stmt.executeUpdate();
+	        stmt.close();
+	        ConnectionFactory.getInstance().disconnect();
+	    } catch (SQLException e) {
+	    	System.err.println("Error al actualizar la factura: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 		
 	}
 
 	@Override
 	public void eliminar(Factura factura) {
-		// TODO Auto-generated method stub
+		try {
+	        String sql = "DELETE FROM factura WHERE idFactura = ?";
+	        PreparedStatement stmt = this.connection.prepareStatement(sql);
+	        stmt.setInt(1, factura.getIdFactura());
+	        stmt.executeUpdate();
+	        stmt.close();
+	        ConnectionFactory.getInstance().disconnect();
+	    } catch (SQLException e) {
+	    	System.err.println("Error al eliminar la factura: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 		
 	}
 

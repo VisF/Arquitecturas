@@ -36,7 +36,7 @@ public class ProductoDAOImpMySQL  implements ProductoDAO{
 	        stmt.setString(2, producto.getNombre());
 	        stmt.setFloat(3, producto.getValor());
 	        stmt.executeUpdate();
-	        //stmt.close();
+	        stmt.close();
 	        ConnectionFactory.getInstance().disconnect();
 	    } catch (SQLException e) {
 	    	System.err.println("Error al insertar el producto: " + e.getMessage());
@@ -67,7 +67,7 @@ public class ProductoDAOImpMySQL  implements ProductoDAO{
 	@Override
 	public void eliminar(Producto producto) {
 		try {
-	        String sql = "DELETE FROM producto WHERE id = ?";
+	        String sql = "DELETE FROM producto WHERE idProducto = ?";
 	        PreparedStatement stmt = this.connection.prepareStatement(sql);
 	        stmt.setInt(1, producto.getIdProducto());
 	        stmt.executeUpdate();
