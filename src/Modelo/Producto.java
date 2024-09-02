@@ -5,6 +5,16 @@ public class Producto {
 	private String nombre;
 	private float valor;
 	
+	public Producto() {
+		super();
+	}
+	
+	public Producto (int id, String nombre, float valor) {
+		this.idProducto=id;
+		this.nombre = nombre;
+		this.valor = valor;	
+	}
+	
 	public int getIdProducto() {
 		return idProducto;
 	}

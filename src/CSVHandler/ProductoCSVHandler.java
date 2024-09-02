@@ -72,7 +72,7 @@ public class ProductoCSVHandler {
 		}
         for(Producto producto : productos){
         	DAOFactory dao_factory = DAOFactory.getInstance();
-        	dao_factory.getProductoDAO(ConnectionFactory.DERBY).insertar(producto);
+        	dao_factory.getProductoDAO(ConnectionFactory.MYSQL).insertar(producto);
         }
     }
     
