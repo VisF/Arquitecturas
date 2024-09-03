@@ -16,7 +16,7 @@ public interface FacturaProductoDAO {
 		
 		//public Cliente buscar_por_nombre(String nombre);
 		
-		//public List<FacturaProducto> listar();
+		public List<FacturaProducto> listar();
 		
 		//public List<FacturaProducto> listarOrdenadoPorFacturacion();
 	}

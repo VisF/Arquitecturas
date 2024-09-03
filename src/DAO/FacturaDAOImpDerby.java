@@ -32,11 +32,11 @@ public class FacturaDAOImpDerby implements FacturaDAO {
 	@Override
 	public void insertar(Factura factura) {
 		try {
-	        String sql = "UPDATE Factura SET idCliente = ? WHERE idFactura = ?";
+	        String sql = "INSERT INTO factura (idFactura, idCliente) VALUES (?,?)";
 	        PreparedStatement stmt = this.connection.prepareStatement(sql);
 	        
-	        stmt.setInt(1, factura.getIdCliente());
-	        stmt.setInt(2, factura.getIdFactura());
+	        stmt.setInt(1, factura.getIdFactura());
+	        stmt.setInt(2, factura.getIdCliente());
 	        stmt.executeUpdate();
 	        //stmt.close();
 	        ConnectionFactory.getInstance().disconnect();
@@ -68,7 +68,7 @@ public class FacturaDAOImpDerby implements FacturaDAO {
 	@Override
 	public void eliminar(Factura factura) {
 		try {
-	        String sql = "DELETE FROM factura WHERE idFactura = ?";
+	        String sql = "DELETE FROM Factura WHERE idFactura = ?";
 	        PreparedStatement stmt = this.connection.prepareStatement(sql);
 	        stmt.setInt(1, factura.getIdFactura());
 	        stmt.executeUpdate();

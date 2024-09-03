@@ -18,7 +18,10 @@ import conection.ConnectionFactory;
 public class ProductoCSVHandler {
 	
     
-    public ProductoCSVHandler() {
+    private String basededatos;
+
+	public ProductoCSVHandler(String bbdd) {
+		this.basededatos = bbdd;
     }
     
     public void procesarCSV(String archivoCSV) {
@@ -42,7 +45,7 @@ public class ProductoCSVHandler {
         for(Producto producto : productos){
         	
         	DAOFactory dao_factory = DAOFactory.getInstance();
-        	dao_factory.getProductoDAO(ConnectionFactory.MYSQL).insertar(producto);
+        	dao_factory.getProductoDAO(basededatos).insertar(producto);
         	
         	//System.out.println(producto.getNombre());
         }

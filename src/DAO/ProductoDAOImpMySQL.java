@@ -90,7 +90,7 @@ public class ProductoDAOImpMySQL  implements ProductoDAO{
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			
 			ResultSet rs = stmt.executeQuery();
-	        if (rs.next()) {
+			while (rs.next()) {
 	        	Producto producto = new Producto();
 	        	producto.setIdProducto(rs.getInt("idProducto"));
 	        	producto.setNombre(rs.getString("nombre"));

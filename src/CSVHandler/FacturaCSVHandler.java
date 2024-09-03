@@ -18,9 +18,10 @@ import conection.ConnectionFactory;
 
 
 public class FacturaCSVHandler {
-		
-		public FacturaCSVHandler() {
-	    }
+		private String basededatos;
+		public FacturaCSVHandler(String bbdd) {
+	    this.basededatos = bbdd;
+		}
 	    
 		public void procesarCSV(String archivoCSV) {
 	        List<Factura> facturas = new ArrayList<>();
@@ -42,13 +43,13 @@ public class FacturaCSVHandler {
 	        for(Factura factura : facturas){
 	        	
 	        	DAOFactory dao_factory = DAOFactory.getInstance();
-	        	dao_factory.getFacturaDAO(ConnectionFactory.MYSQL).insertar(factura);
+	        	dao_factory.getFacturaDAO(basededatos).insertar(factura);
 	        	
 	        	//System.out.println(factura.getIdCliente() + ";" + factura.getIdFactura());
 	        	
 	        }
 	    }
-		
+		/*
 	    public void procesarCSVviejo(String archivoCSV) {
 	        List<Factura> facturas = new ArrayList<>();
 	        ArrayList<String[]> lines = this.readContent(archivoCSV);
@@ -72,7 +73,7 @@ public class FacturaCSVHandler {
 			}
 	        for(Factura factura : facturas){
 	        	DAOFactory dao_factory = DAOFactory.getInstance();
-	        	dao_factory.getFacturaDAO(ConnectionFactory.MYSQL).insertar(factura);
+	        	dao_factory.getFacturaDAO(basededatos).insertar(factura);
 	        }
 	    }
 	    
@@ -102,7 +103,7 @@ public class FacturaCSVHandler {
 			}
 			
 			return lines;
-		}
+		}*/
 }
 
 

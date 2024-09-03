@@ -118,7 +118,7 @@ public class ProductoDAOImpDerby implements ProductoDAO{
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			
 			ResultSet rs = stmt.executeQuery();
-			while(rs.next()) {
+			if(rs.next()) {
 	        	masRecaudador = new Producto();
 	        	masRecaudador.setIdProducto(rs.getInt("idProducto"));
 	        	masRecaudador.setNombre(rs.getString("nombre"));

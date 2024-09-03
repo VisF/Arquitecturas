@@ -33,7 +33,7 @@ public class ClienteDAOImpDerby implements ClienteDAO{
 	@Override
 	public void insertar(Cliente cliente) {
 		try {
-	        String sql = "INSERT INTO CLIENTE (id, nombre, email) VALUES (?,?,?)";
+	        String sql = "INSERT INTO Cliente (id, nombre, email) VALUES (?,?,?)";
 	        PreparedStatement stmt = this.connection.prepareStatement(sql);
 	        stmt.setInt(1, cliente.getId());
 	        stmt.setString(2, cliente.getNombre());
@@ -95,6 +95,7 @@ public class ClienteDAOImpDerby implements ClienteDAO{
 	        	Cliente cliente = new Cliente();
 	        	cliente.setId(rs.getInt("id"));
 	        	cliente.setNombre(rs.getString("nombre"));
+	        	cliente.setEmail(rs.getString("email"));
 	        	clientes.add(cliente);
 	        }
 

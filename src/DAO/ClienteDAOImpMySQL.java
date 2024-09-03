@@ -89,10 +89,11 @@ public class ClienteDAOImpMySQL implements ClienteDAO{
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			
 			ResultSet rs = stmt.executeQuery();
-	        if (rs.next()) {
+	        while (rs.next()) {
 	        	Cliente cliente = new Cliente();
 	        	cliente.setId(rs.getInt("id"));
 	        	cliente.setNombre(rs.getString("nombre"));
+	        	cliente.setEmail(rs.getString("email"));
 	        	clientes.add(cliente);
 	        }
 
