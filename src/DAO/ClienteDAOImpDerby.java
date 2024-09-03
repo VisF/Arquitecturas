@@ -107,8 +107,30 @@ public class ClienteDAOImpDerby implements ClienteDAO{
 
 	@Override
 	public List<Cliente> listarOrdenadoPorFacturacion() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Cliente> clientes = new ArrayList<>();
+		try {
+			String sql = "SELECT c.*"
+					+ "	FROM cliente c INNER JOIN factura f On c.id = f.idCliente"
+					+ "	INNER JOIN factura_producto fp ON f.idFactura = fp.idFactura"
+					+ "	INNER JOIN producto p ON fp.idProducto = p.idProducto"
+					+ "	GROUP BY c.id"
+					+ "	ORDER BY SUM(fp.cantidad * p.valor) DESC";
+			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			
+			ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	        	Cliente cliente = new Cliente();
+	        	cliente.setId(rs.getInt("id"));
+	        	cliente.setNombre(rs.getString("nombre"));
+	        	clientes.add(cliente);
+	        }
+
+		}
+		catch (SQLException e){
+			e.printStackTrace();
+		}
+		return clientes;
 	}
 
 	
