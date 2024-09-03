@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Modelo.Factura;
+import Modelo.Producto;
 import conection.ConnectionFactory;
 
 public class FacturaDAOImpDerby implements FacturaDAO {
@@ -48,13 +49,35 @@ public class FacturaDAOImpDerby implements FacturaDAO {
 
 	@Override
 	public void actualizar(Factura factura) {
-		// TODO Auto-generated method stub
+		try {
+	        String sql = "UPDATE Factura SET idCliente = ? WHERE idFactura = ?";
+	        PreparedStatement stmt = this.connection.prepareStatement(sql);
+	        
+	        stmt.setInt(1, factura.getIdCliente());
+	        stmt.setInt(2, factura.getIdFactura());
+	        stmt.executeUpdate();
+	        //stmt.close();
+	        ConnectionFactory.getInstance().disconnect();
+	    } catch (SQLException e) {
+	    	System.err.println("Error al actualizar el cliente: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 		
 	}
 
 	@Override
 	public void eliminar(Factura factura) {
-		// TODO Auto-generated method stub
+		try {
+	        String sql = "DELETE FROM factura WHERE idFactura = ?";
+	        PreparedStatement stmt = this.connection.prepareStatement(sql);
+	        stmt.setInt(1, factura.getIdFactura());
+	        stmt.executeUpdate();
+	        //stmt.close();
+	        ConnectionFactory.getInstance().disconnect();
+	    } catch (SQLException e) {
+	    	System.err.println("Error al eliminar el producto: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 		
 	}
 

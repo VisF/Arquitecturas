@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
+import Modelo.Cliente;
 import Modelo.Producto;
 import conection.ConnectionFactory;
 
@@ -82,8 +84,25 @@ public class ProductoDAOImpMySQL  implements ProductoDAO{
 
 	@Override
 	public List<Producto> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Producto> productos = new ArrayList<>();
+		try {
+			String sql = "SELECT * FROM Producto";
+			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			
+			ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	        	Producto producto = new Producto();
+	        	producto.setIdProducto(rs.getInt("idProducto"));
+	        	producto.setNombre(rs.getString("nombre"));
+	        	producto.setValor(rs.getFloat("valor"));
+	        	productos.add(producto);
+	        }
+
+		}
+		catch (SQLException e){
+			e.printStackTrace();
+		}
+		return productos;
 	}
 
 	@Override
