@@ -122,6 +122,7 @@ public class ClienteDAOImpMySQL implements ClienteDAO{
 	        	Cliente cliente = new Cliente();
 	        	cliente.setId(rs.getInt("id"));
 	        	cliente.setNombre(rs.getString("nombre"));
+	        	cliente.setEmail(rs.getString("email"));
 	        	clientes.add(cliente);
 	        }
 

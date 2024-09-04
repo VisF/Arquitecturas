@@ -22,7 +22,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		DAOFactory dao_factory = DAOFactory.getInstance();
-		String ddbb = ConnectionFactory.DERBY;
+		String ddbb = ConnectionFactory.MYSQL;
+		String ddbb2 = ConnectionFactory.DERBY;
 		//crearTablas(dao_factory,ddbb);
 		
 		//insertarTuplas(ddbb);
@@ -31,7 +32,10 @@ public class Main {
 		System.out.println(dao_factory.getProductoDAO(ddbb).getMasRecaudador());
 		System.out.println(dao_factory.getClienteDAO(ddbb).listarOrdenadoPorFacturacion());
 		
+		System.out.println(dao_factory.getProductoDAO(ddbb2).getMasRecaudador());
+		System.out.println(dao_factory.getClienteDAO(ddbb2).listarOrdenadoPorFacturacion());		
 		/*
+		
 		List<Cliente> clientes = dao_factory.getClienteDAO(ddbb).listar();
 		for(Cliente cliente: clientes) {
 			System.out.println(cliente.toString());

@@ -108,13 +108,13 @@ public class ProductoDAOImpDerby implements ProductoDAO{
 	public Producto getMasRecaudador() {
 		Producto masRecaudador = null;
 		try {
-			String sql = "SELECT p.idProducto, p.nombre, p.valor"
-					+ "     FROM Producto p"
-					+ "     INNER JOIN factura_producto fp"
-					+ "     ON p.idProducto = fp.idProducto"
-					+ "     GROUP BY p.idProducto"
-					+ "     ORDER BY SUM(fp.cantidad) * p.valor DESC"
-					+ "		LIMIT 1";
+			String sql = "SELECT producto.idProducto, producto.nombre, producto.valor, SUM(factura_producto.cantidad * producto.valor) AS recaudacion "
+		            + "FROM producto JOIN factura_producto "
+		            + "ON producto.idProducto = factura_producto.idProducto "
+		            + "GROUP BY producto.idProducto, producto.nombre, producto.valor "
+		            + "ORDER BY recaudacion DESC";
+
+
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			
 			ResultSet rs = stmt.executeQuery();
