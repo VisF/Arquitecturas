@@ -33,7 +33,7 @@ public class ClienteDAOImpDerby implements ClienteDAO{
 	@Override
 	public void insertar(Cliente cliente) {
 		try {
-	        String sql = "INSERT INTO CLIENTE (id, nombre, email) VALUES (?,?,?)";
+	        String sql = "INSERT INTO Cliente (id, nombre, email) VALUES (?,?,?)";
 	        PreparedStatement stmt = this.connection.prepareStatement(sql);
 	        stmt.setInt(1, cliente.getId());
 	        stmt.setString(2, cliente.getNombre());
@@ -95,6 +95,7 @@ public class ClienteDAOImpDerby implements ClienteDAO{
 	        	Cliente cliente = new Cliente();
 	        	cliente.setId(rs.getInt("id"));
 	        	cliente.setNombre(rs.getString("nombre"));
+	        	cliente.setEmail(rs.getString("email"));
 	        	clientes.add(cliente);
 	        }
 
@@ -110,12 +111,15 @@ public class ClienteDAOImpDerby implements ClienteDAO{
 		
 		List<Cliente> clientes = new ArrayList<>();
 		try {
-			String sql = "SELECT c.*"
-					+ "	FROM cliente c INNER JOIN factura f On c.id = f.idCliente"
-					+ "	INNER JOIN factura_producto fp ON f.idFactura = fp.idFactura"
-					+ "	INNER JOIN producto p ON fp.idProducto = p.idProducto"
-					+ "	GROUP BY c.id"
-					+ "	ORDER BY SUM(fp.cantidad * p.valor) DESC";
+			String sql = "SELECT cliente.id, cliente.nombre, cliente.email, "
+		            + "SUM(factura_producto.cantidad * producto.valor) AS facturacion "
+		            + "FROM cliente "
+		            + "JOIN factura ON factura.idCliente = cliente.id "
+		            + "JOIN factura_producto ON factura_producto.idFactura = factura.idFactura "
+		            + "JOIN producto ON factura_producto.idProducto = producto.idProducto "
+		            + "GROUP BY cliente.id, cliente.nombre, cliente.email "
+		            + "ORDER BY facturacion DESC";
+
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			
 			ResultSet rs = stmt.executeQuery();
@@ -123,6 +127,7 @@ public class ClienteDAOImpDerby implements ClienteDAO{
 	        	Cliente cliente = new Cliente();
 	        	cliente.setId(rs.getInt("id"));
 	        	cliente.setNombre(rs.getString("nombre"));
+	        	cliente.setEmail(rs.getString("email"));
 	        	clientes.add(cliente);
 	        }
 

@@ -14,8 +14,10 @@ import Modelo.FacturaProducto;
 import conection.ConnectionFactory;
 
 public class FacturaProductoCSVHandler {
-
-
+	private String basededatos;
+	public FacturaProductoCSVHandler(String bbdd) {
+		this.basededatos = bbdd;
+	}
 	public void procesarCSV(String archivoCSV) {
        List<FacturaProducto> facturaProductos = new ArrayList<>();
        
@@ -37,7 +39,7 @@ public class FacturaProductoCSVHandler {
        for(FacturaProducto facturaProducto : facturaProductos){
        	
        	DAOFactory dao_factory = DAOFactory.getInstance();
-       	dao_factory.getFacturaProductoDAO(ConnectionFactory.MYSQL).insertar(facturaProducto);
+       	dao_factory.getFacturaProductoDAO(basededatos).insertar(facturaProducto);
        	
        	//System.out.println(facturaProducto.getIdFactura() + ";" + facturaProducto.getIdProducto() + ";" + facturaProducto.getCantidad());
        	

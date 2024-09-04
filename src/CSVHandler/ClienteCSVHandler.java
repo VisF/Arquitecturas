@@ -18,9 +18,10 @@ import Modelo.Producto;
 import conection.ConnectionFactory;
 
 public class ClienteCSVHandler {
+	private String basededatos;
 	
-	public ClienteCSVHandler() {
-    }
+	public ClienteCSVHandler(String bbdd) {
+		this.basededatos = bbdd;    }
 	
 	public void procesarCSV(String archivoCSV) {
         List<Cliente> clientes = new ArrayList<>();
@@ -43,13 +44,13 @@ public class ClienteCSVHandler {
         for(Cliente cliente : clientes){
         	
         	DAOFactory dao_factory = DAOFactory.getInstance();
-        	dao_factory.getClienteDAO(ConnectionFactory.MYSQL).insertar(cliente);
+        	dao_factory.getClienteDAO(basededatos).insertar(cliente);
         	
         	//System.out.println(cliente.getId() + ";" + cliente.getNombre() + ";" + cliente.getEmail());
         	
         }
     }
-    
+    /*
     public void procesarCSVviejo(String archivoCSV) {
         List<Cliente> clientes = new ArrayList<>();
         ArrayList<String[]> lines = this.readContent(archivoCSV);
@@ -73,7 +74,7 @@ public class ClienteCSVHandler {
 		}
         for(Cliente cliente : clientes){
         	DAOFactory dao_factory = DAOFactory.getInstance();
-        	dao_factory.getClienteDAO(ConnectionFactory.MYSQL).insertar(cliente);
+        	dao_factory.getClienteDAO(basededatos).insertar(cliente);
         }
     }
     
@@ -102,5 +103,5 @@ public class ClienteCSVHandler {
 		}
 		
 		return lines;
-	}
+	}*/
 }

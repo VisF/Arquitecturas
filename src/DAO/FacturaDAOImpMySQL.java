@@ -2,8 +2,10 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import Modelo.Factura;
@@ -82,8 +84,24 @@ private Connection connection = ConnectionFactory.getInstance().connect(Connecti
 
 	@Override
 	public List<Factura> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Factura> facturas = new ArrayList<>();
+		try {
+			String sql = "SELECT * FROM Factura";
+			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			
+			ResultSet rs = stmt.executeQuery();
+	        while (rs.next()) {
+	        	Factura factura = new Factura();
+	        	factura.setIdFactura(rs.getInt("idFactura"));
+	        	factura.setIdCliente(rs.getInt("idCliente"));
+	        	facturas.add(factura);
+	        }
+
+		}
+		catch (SQLException e){
+			e.printStackTrace();
+		}
+		return facturas;
 	}
 
 }

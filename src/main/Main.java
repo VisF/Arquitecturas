@@ -12,6 +12,7 @@ import CSVHandler.ProductoCSVHandler;
 import DAO.DAOFactory;
 import Modelo.Cliente;
 import Modelo.Factura;
+import Modelo.FacturaProducto;
 import Modelo.Producto;
 //import Modelo.Cliente;
 import conection.ConnectionFactory;
@@ -21,118 +22,67 @@ public class Main {
 
 	public static void main(String[] args) {
 		DAOFactory dao_factory = DAOFactory.getInstance();
+		String ddbb = ConnectionFactory.MYSQL;
+		String ddbb2 = ConnectionFactory.DERBY;
+		//crearTablas(dao_factory,ddbb);
 		
-		crearTablas(dao_factory);
+		//insertarTuplas(ddbb);
+		//insertarTuplas(ConnectionFactory.MYSQL);
 		
-		insertarTuplas();
+		System.out.println(dao_factory.getProductoDAO(ddbb).getMasRecaudador());
+		System.out.println(dao_factory.getClienteDAO(ddbb).listarOrdenadoPorFacturacion());
 		
-		System.out.println(dao_factory.getProductoDAO(ConnectionFactory.MYSQL).getMasRecaudador());
-		
+		System.out.println(dao_factory.getProductoDAO(ddbb2).getMasRecaudador());
+		System.out.println(dao_factory.getClienteDAO(ddbb2).listarOrdenadoPorFacturacion());		
 		/*
-		Cliente cliente1 = new Cliente();
-		cliente1.setId(1);
-		cliente1.setNombre("PrimeraPrueba");
-		cliente1.setEmail("facundo");
-		//dao_factory.getClienteDAO(ConnectionFactory.DERBY).insertar(cliente1);
 		
-		
-		Factura factura = new Factura();
-		factura.setIdCliente(1);
-		factura.setIdFactura(1);
-		System.out.println(factura.getIdCliente());
-	//	dao_factory.getFacturaDAO(ConnectionFactory.DERBY).insertar(factura);
-		List<Factura> facturas = new ArrayList<>();
-		facturas = dao_factory.getFacturaDAO(ConnectionFactory.DERBY).listar();
-		*/
-		
-		//csv.procesarCSV("./src/csvfiles/datasets/producto2.csv");
-		
-		
-		/*  ---  CSV  ---  */
-		/*
-		ProductoCSVHandler csv = new ProductoCSVHandler();
-		csv.procesarCSV("./src/csvfiles/datasets/productos.csv");
-		*/ 
-		
-		/*
-		ClienteCSVHandler csvCliente = new ClienteCSVHandler();
-		csvCliente.procesarCSV("./src/csvfiles/datasets/clientes.csv");
-		//agrega los mails con " al final
-		 */
-		
-		
+		List<Cliente> clientes = dao_factory.getClienteDAO(ddbb).listar();
+		for(Cliente cliente: clientes) {
+			System.out.println(cliente.toString());
+		}
 
-		/*
->>>>>>> 65e1c156272063cc9f51afe614e9287936863f01
+		List<Factura> facturas = dao_factory.getFacturaDAO(ddbb).listar();
+		
+		for(Factura factura: facturas) {
+			System.out.println(factura.toString());
+		}
+
 		List<Producto> productos = new ArrayList<>();
-		productos = dao_factory.getProductoDAO(ConnectionFactory.DERBY).listar();
+		productos = dao_factory.getProductoDAO(ddbb).listar();
 		
-		for(int i=0;i<productos.size();i++) {
-			System.out.println("Id Producto: " + productos.get(i).getIdProducto() + " nombre del producto: " + productos.get(i).getNombre() + " valor: " + productos.get(i).getValor());
-			
-		}		
+		for(Producto producto: productos) {
+			System.out.println(producto);
+		}
 		
+		List<FacturaProducto> fp = new ArrayList<>();
+		fp = dao_factory.getFacturaProductoDAO(ddbb).listar();
 		
-		/*  --- MySQL --- */
-		
-		/*
-		Cliente cliente1 = new Cliente();
-		cliente1.setId(1);
-		cliente1.setNombre("PrimeraPrueba");
-		cliente1.setEmail("facundo");
-		
-		//dao_factory.getClienteDAO(ConnectionFactory.MYSQL).insertar(cliente1);
-		//cliente1.setId(2);
-		//dao_factory.getClienteDAO(ConnectionFactory.MYSQL).actualizar(cliente1);
-		//dao_factory.getClienteDAO(ConnectionFactory.MYSQL).eliminar(cliente1);
-		 */
-	
-		/*
-		List<Cliente> clientes = new ArrayList<>();
-		clientes = dao_factory.getClienteDAO(ConnectionFactory.MYSQL).listar();
-		
-		/*for(Cliente cl :clientes) {
-		      System.out.println(cl.toString());
-		    }
-		   */
-		/*
-		 for (int i=0;i<clientes.size();i++) {
-		      
-		      System.out.println(clientes.get(i).toString());
-		    }
-		 */
-		
-		
-		
-		
-		/*  ---  EJERCICIO 3  ---  */
-		/*
-		Producto masRecaudador = dao_factory.getProductoDAO(ConnectionFactory.MYSQL).getMasRecaudador();
-		System.out.println(masRecaudador.toString());
+		for(FacturaProducto facturaProducto: fp) {
+			System.out.println(facturaProducto);
+		}
 		*/
-	
 		
 	}
 
-	private static void insertarTuplas() {
-		ClienteCSVHandler csvCliente = new ClienteCSVHandler();
+	private static void insertarTuplas(String bbdd) {
+		ClienteCSVHandler csvCliente = new ClienteCSVHandler(bbdd);
 		csvCliente.procesarCSV("./src/csvfiles/datasets/clientes.csv");
 		
-		ProductoCSVHandler csv = new ProductoCSVHandler();
+		ProductoCSVHandler csv = new ProductoCSVHandler(bbdd);
 		csv.procesarCSV("src/CSVFiles/datasets/productos.csv");
 		
-		FacturaCSVHandler csvFactura = new FacturaCSVHandler();
+		FacturaCSVHandler csvFactura = new FacturaCSVHandler(bbdd);
 		csvFactura.procesarCSV("./src/csvfiles/datasets/facturas.csv");
 		
-		FacturaProductoCSVHandler csvFacturaProducto = new FacturaProductoCSVHandler();
+		FacturaProductoCSVHandler csvFacturaProducto = new FacturaProductoCSVHandler(bbdd);
 		csvFacturaProducto.procesarCSV("./src/csvfiles/datasets/facturas-productos.csv");
 	}
 
-	private static void crearTablas(DAOFactory dao_factory) {
-		dao_factory.getClienteDAO(ConnectionFactory.MYSQL).crear_tabla();
-		dao_factory.getProductoDAO(ConnectionFactory.MYSQL).crear_tabla();
-		dao_factory.getFacturaDAO(ConnectionFactory.MYSQL).crear_tabla();
-		dao_factory.getFacturaProductoDAO(ConnectionFactory.MYSQL).crear_tabla();
+	private static void crearTablas (DAOFactory dao_factory, String ddbb) {
+		dao_factory.getClienteDAO(ddbb).crear_tabla();
+		dao_factory.getProductoDAO(ddbb).crear_tabla();
+		dao_factory.getFacturaDAO(ddbb).crear_tabla();
+		dao_factory.getFacturaProductoDAO(ddbb).crear_tabla();
 	}
 
 }
