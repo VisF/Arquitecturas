@@ -24,16 +24,19 @@ public class Main {
 		DAOFactory dao_factory = DAOFactory.getInstance();
 		String ddbb = ConnectionFactory.MYSQL;
 		String ddbb2 = ConnectionFactory.DERBY;
-		//crearTablas(dao_factory,ddbb);
+		//crearTablas(dao_factory,ddbb2);
 		
-		//insertarTuplas(ddbb);
-		//insertarTuplas(ConnectionFactory.MYSQL);
+		//insertarTuplas(ddbb2);
 		
-		System.out.println(dao_factory.getProductoDAO(ddbb).getMasRecaudador());
-		System.out.println(dao_factory.getClienteDAO(ddbb).listarOrdenadoPorFacturacion());
+		//System.out.println(dao_factory.getProductoDAO(ddbb).getMasRecaudador());
+		//System.out.println(dao_factory.getClienteDAO(ddbb).listarOrdenadoPorFacturacion());
 		
 		System.out.println(dao_factory.getProductoDAO(ddbb2).getMasRecaudador());
-		System.out.println(dao_factory.getClienteDAO(ddbb2).listarOrdenadoPorFacturacion());		
+		
+		List<Cliente> clientesOrdenadosFacturacion = dao_factory.getClienteDAO(ddbb2).listarOrdenadoPorFacturacion();
+		for(Cliente cliente : clientesOrdenadosFacturacion) {
+			System.out.println(cliente);
+		}
 		/*
 		
 		List<Cliente> clientes = dao_factory.getClienteDAO(ddbb).listar();
